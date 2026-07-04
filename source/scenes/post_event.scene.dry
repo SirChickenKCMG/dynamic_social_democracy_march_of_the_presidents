@@ -6,6 +6,10 @@ if (Q.social_patriot && Q.neorevisionism && !Q.left_split && !Q.centrists_resign
     this.achieve('das_grosste_aller_zelte');
 }
 
+if (Q.chancellor == "Brüning" && Q.nationalization_progress > 0 && Q.lautenbach_adopted == 1) {
+    this.achieve('bruning_der_rotfrontkampfer');
+}
+
 const q = dendryUI.dendryEngine.state.qualities;
 const dynamicMode = q.dynamic_mode;
 const historicalMode = q.historical_mode;
@@ -981,6 +985,8 @@ if (Q.rubicon && Q.month_actions >= 1 && Q.month_actions != Q.month_actions_chec
 
 Q.month_actions_checked = Q.month_actions;
 
+if (Q.ddp_in_popular_front && !Q.in_popular_front) Q.ddp_in_popular_front = 0;
+
 // 1. update dates
 if ((Q.month_actions >= 1 && !Q.rubicon) || (Q.month_actions >= 4 && Q.rubicon)) {
     Q.time += 1;
@@ -1348,7 +1354,7 @@ if ((Q.month_actions >= 1 && !Q.rubicon) || (Q.month_actions >= 4 && Q.rubicon))
     if (Q.muller_advisor) Q.center_advisor_n += 1;
     if (Q.breitscheid_advisor) Q.center_advisor_n += 1;
 
-    centrist_advisor_decay_effect = Q.center_advisor_n*0.3;
+    var centrist_advisor_decay_effect = Q.center_advisor_n*0.3;
 
     if (Q.center_advisor_n) {
         Q.center_dissent_decay *= (1-centrist_advisor_decay_effect);
@@ -1358,16 +1364,24 @@ if ((Q.month_actions >= 1 && !Q.rubicon) || (Q.month_actions >= 4 && Q.rubicon))
     }
 
     Q.non_factional_advisor_n = 0;
-    if (Q.baade_advisor) Q.non_factional_advisor_n += 1;
+    if (Q.baade_advisor) {
+        Q.non_factional_advisor_n += 1;
         if (Q.land_reform) Q.non_factional_advisor_n += 1;
-    if (Q.hirschfeld_advisor) Q.non_factional_advisor_n += 1;
+    }
+    if (Q.hirschfeld_advisor) {
+        Q.non_factional_advisor_n += 1;
         if (Q.homosexual_rights) Q.non_factional_advisor_n += 1;
-    if (Q.stampfer_advisor and Q.editorial_line = "Center) Q.non_factional_advisor_n += 1;
+    }
+    if (Q.stampfer_advisor && Q.editorial_line == "Center") {
+        Q.non_factional_advisor_n += 1;
         if (Q.kpd_truce) Q.non_factional_advisor_n += 1;
-    if (Q.radbruch_advisor) Q.non_factional_advisor_n += 1;
+    }
+    if (Q.radbruch_advisor) {
+        Q.non_factional_advisor_n += 1;
         if (Q.judicial_reform >= 2) Q.non_factional_advisor_n += 1;
+    }
 
-    non_factional_advisor_decay_effect = Q.non_factional_advisor_n*0.15;
+    var non_factional_advisor_decay_effect = Q.non_factional_advisor_n*0.15;
 
     if (Q.non_factional_advisor_n) {
         Q.center_dissent_decay *= (1-non_factional_advisor_decay_effect);
@@ -1478,6 +1492,11 @@ if ((Q.month_actions >= 1 && !Q.rubicon) || (Q.month_actions >= 4 && Q.rubicon))
     if (Q.labor_dissent < 0) Q.labor_dissent = 0;
     if (Q.left_dissent < 0) Q.left_dissent = 0;
     if (Q.reformist_dissent < 0) Q.reformist_dissent = 0;
+
+    Q.center_strength += Q.center_strength_gain;
+    Q.labor_strength += Q.labor_strength_gain;
+    Q.left_strength += Q.left_strength_gain;
+    Q.reformist_strength += Q.reformist_strength_gain; 
 
     if (Q.reformist_strength >= 60) {
         if (Q.z_relation < 30 && !Q.stegerwald_path) {
@@ -2613,7 +2632,7 @@ if (!Q.wtb_adopted && Q.black_thursday_seen) {
     if (Q.labor_strength >= (Q.center_strength + Q.left_strength)) Q.wtb_points_gain += 3
     Q.wtb_points_gain += Q.labor_strength/50;
     if (Q.woytinsky_advisor) {
-        Q.wtb_points_gain += Q.labor_strength/100;
+        Q.wtb_points_gain += Q.labor_strength/50;
     }
     Q.wtb_points_gain += Q.leipart_advisor + Q.baade_advisor;
     if (Q.inflation < -2) Q.wtb_points_gain += ((Q.inflation/8)*-1);
@@ -4032,11 +4051,11 @@ if (Q.spd_in_government_time >= 6) {
     if (Q.judicial_reform >= 1) {
         Q.hindenburg_angry += (Q.judicial_reform / 2)
     }
-    if (Q.coalition_dissent == 0) {
+    if (Q.coalition_dissent <= 0) {
         Q.hindenburg_angry -= 2;
     } else if (Q.coalition_dissent == 2) {
         Q.hindenburg_angry += 2;
-    } else if (Q.coalition_dissent == 3) {
+    } else if (Q.coalition_dissent >= 3) {
         Q.hindenburg_angry += 3;
     }
     if (Q.capital_strike_progress > 0) {
@@ -4146,7 +4165,7 @@ if (Q.spd_in_government_time >= 6) {
     } else if (Q.reichswehr_loyalty <= 0.2) {
         Q.hindenburg_angry += 1;
     } else if (Q.reichswehr_loyalty <= 0.25) {
-        // if you're reading this, dm the modman for an award
+
     } else if (Q.reichswehr_loyalty <= 0.3) {
         Q.hindenburg_angry -= 2;
     } else if (Q.reichswehr_loyalty <= 0.5) {
@@ -4165,6 +4184,9 @@ if (Q.spd_in_government_time >= 6) {
     }
     if (((Q.z_relation + Q.ddp_relation) / 2) < 40) {
         Q.hindenburg_angry += 1;
+    }
+    if (Q.peoples_party) {
+        Q.hindenburg_angry -= 1;
     }
     if (Q.left_strength >= Q.reformist_strength) {
         Q.hindenburg_angry += Q.left_strength / 50;
@@ -4893,7 +4915,9 @@ if (Q.dnvp_ideology === "Moderate") {
     Q.far_right_coalition = parseFloat((Q.dnvp_r + Q.nsdap_r).toFixed(1));
 }
 
-if (Q.hugenberg_dvp) Q.far_right_coalition = parseFloat((Q.far_right_coalition + Q.dvp_r).toFixed(1));
+if (Q.dvp_leader == "Dingeldey" && Q.dvp_ideology == "Right" && Q.dvp_right - Q.dvp_left >= 15 || Q.hugenberg_dvp) {
+    Q.far_right_coalition += Q.dvp_r;
+}
 
 Q.left_coalition = parseFloat((Q.spd_r + Q.kpd_r + Q.sapd_r).toFixed(1));
 
@@ -4994,7 +5018,9 @@ if (Q.dnvp_ideology === "Moderate") {
     Q.far_right_coalition_prussia = parseFloat((Q.dnvp_r_prussia + Q.nsdap_r_prussia).toFixed(1));
 }
 
-if (Q.hugenberg_dvp) Q.far_right_coalition_prussia = parseFloat((Q.far_right_coalition_prussia + Q.dvp_r_prussia).toFixed(1));
+if (Q.dvp_leader == "Dingeldey" && Q.dvp_ideology == "Right" && Q.dvp_right - Q.dvp_left >= 15 || Q.hugenberg_dvp) {
+    Q.far_right_coalition_prussia = parseFloat((Q.far_right_coalition_prussia + Q.dvp_r_prussia).toFixed(1));
+}
 
 Q.left_coalition_prussia = parseFloat((Q.spd_r_prussia + Q.kpd_r_prussia + Q.sapd_r_prussia).toFixed(1));
 
@@ -5152,7 +5178,7 @@ var choices = this._compileChoices(scene);
 if (choices && choices[0].title != "Continue...") {
     Q.has_event = 1;
 } else {
-    has_event = 0;
+    Q.has_event = 0;
 }
 // pre-load all of the event images
 if (this.ui && this.ui.show_portraits) {

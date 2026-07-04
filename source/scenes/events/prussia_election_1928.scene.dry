@@ -525,7 +525,9 @@ if (Q.dnvp_ideology === "Moderate") {
     Q.far_right_coalition_prussia = parseFloat((Q.dnvp_r_prussia + Q.nsdap_r_prussia).toFixed(1));
 }
 
-if (Q.hugenberg_dvp) Q.far_right_coalition_prussia = parseFloat((Q.far_right_coalition_prussia + Q.dvp_r_prussia).toFixed(1));
+if (Q.dvp_leader == "Dingeldey" && Q.dvp_ideology == "Right" && Q.dvp_right - Q.dvp_left >= 15 || Q.hugenberg_dvp) {
+    Q.far_right_coalition_prussia = parseFloat((Q.far_right_coalition_prussia + Q.dvp_r_prussia).toFixed(1));
+}
 
 Q.left_coalition_prussia = parseFloat((Q.spd_r_prussia + Q.kpd_r_prussia + Q.sapd_r_prussia).toFixed(1));
 
@@ -895,7 +897,7 @@ Schleicher's preferred coalition is one with the right, cooperating with the har
 title: <span style="color: #c00000;">**SPD**</span> majority alone
 subtitle: <span style="color: #c00000;">**SPD**</span>: [+ spd_r_prussia +]%
 view-if: spd_r_prussia >= 50
-on-arrival: pro_republic += 5; reichswehr_loyalty -= 0.05 if chancellor == "Braun"; ddp_right += 2; dvp_right += 4; lvp_right += 3; liberal_cooperation += 5; bourgeois_cooperation += 5; prussia_leader = "Braun"; spd_majority_prussia = 1; prussian_police_loyalty += 0.1; prussian_police_strength += 50; democratization += 3; coup_progress += 1; capital_strike_progress += 2; ddp_relation -= 3; lvp_relation -= 3; z_relation -= 3; spd_prussia = 1
+on-arrival: pro_republic += 5; reichswehr_loyalty -= 0.05 if chancellor == "Braun"; ddp_right += 2; dvp_right += 4; lvp_right += 3; liberal_cooperation += 5; bourgeois_cooperation += 5; prussia_leader = "Braun"; in_spd_majority_prussia = 1; prussian_police_loyalty += 0.1; prussian_police_strength += 50; democratization += 3; coup_progress += 1; capital_strike_progress += 2; ddp_relation -= 3; lvp_relation -= 3; z_relation -= 3; spd_prussia = 1
 
 Finally, the <span style="color: #c00000;">**SPD**</span> can govern alone! Our long campaign of electioneering has paid off. We do not need to worry about coalition government; anything is possible. However, our former coalition partners are going to start drifting to the right.
 

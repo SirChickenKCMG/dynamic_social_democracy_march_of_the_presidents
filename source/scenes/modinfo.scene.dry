@@ -92,7 +92,7 @@ on-arrival: {!
   const achievements = [
     "achievement_eiserne_front",
     "achievement_civil_war",
-    "achievement_einigkeit",
+    "achievement_einigkeit_und_recht_und_freiheit",
     "achievement_victory_for_the_republic",
     "achievement_bollwerk_der_demokratie",
     "achievement_red_tzar_of_prussia",
@@ -116,6 +116,7 @@ on-arrival: {!
     "achievement_equality",
     "achievement_hirschfeld",
     "achievement_women_reichsbanner",
+    "achievement_anders_als_die_andern",
     "achievement_bruder_zur_sonne",
     "achievement_die_rote_fahne",
     "achievement_panik_im_mittelstand",
@@ -198,7 +199,24 @@ on-arrival: {!
     "achievement_neue_geschaftsfuhrung",
     "achievement_rotes_bayern",
     "achievement_1919_geracht",
-    "achievement_nach_der_spd_wir"
+    "achievement_nach_der_spd_wir",
+    "achievement_eurokommunismus",
+    "achievement_kriegswirtschaft",
+    "achievement_sechs_sieben",
+    "achievement_er_ist_wieder_da",
+    "achievement_abgrundlaufer",
+    "achievement_bruning_uber_alles",
+    "achievement_der_aufstieg_skywalkers",
+    "achievement_kulturkampf",
+    "achievement_mr_breitscheid",
+    "achievement_alt_aber_gold",
+    "achievement_kleber_der_partei",
+    "achievement_grosse_sauberung",
+    "achievement_die_rote_justiz",
+    "achievement_bruning_der_rotfrontkampfer",
+    "achievement_merz_und_scholz",
+    "achievement_lindner_moribund",
+    "achievement_tausendjahrige_libreich"
   ];
 
   Q.unlockedCount = achievements.filter(key => Q[key] === 1).length;
@@ -311,6 +329,16 @@ We have a friendly discord server if you want to talk to the modman, or other pl
 <a href="https://discord.gg/8BbZZgmSpb">https://discord.gg/8BbZZgmSpb</a>
 
 @changelog
+on-arrival:{!
+const toolsWrapper = document.getElementById('tools_wrapper');
+if (toolsWrapper) {
+  toolsWrapper.style.display = 'none';
+}
+const elements = document.querySelectorAll('header, #content, footer');
+elements.forEach(el => {
+  el.style.maxWidth = '800px';
+});
+!}
 
 = Changelog
 
@@ -336,11 +364,78 @@ We have a friendly discord server if you want to talk to the modman, or other pl
 
 [? if not snoopy: - Fixed landtag rounding issues. ?]
 
+**V1.04 - 2025/09/25**
+
+[? if not snoopy: - New achievements: "Eurokommunismus", "Kriegswirtschaft", "Sechs Sieben", "Er ist wieder da", "Abgrundläufer", "Brüning Uber Alles", "Der Aufstieg Skywalkers", and "Kulturkampf". ?]
+
+[? if not snoopy: - "Anders als die Andern" achievement ported from the base game. ?]
+
+[? if not snoopy: - "Heuchelei" and "Neue Geschäftsführung" achievements granted an icon. ?]
+
+[? if not snoopy: - Catastrophepolitik achievement's requirements relaxed. ?]
+
+[? if not snoopy: - Various bug fixes. ?]
+
+**V1.04a - 2025/09/26**
+
+[? if not snoopy: - New challenge mode ?]
+
+[? if not snoopy: - "Kulturkampf" achievement granted an icon. ?]
+
+[? if not snoopy: - Singular bug fix. ?]
+
+**V1.05 - 2026/01/24**
+
+[? if not snoopy: - New achievement: "Because I'm Mr. Breit-scheid". ?]
+
+[? if not snoopy: - Several bug fixes. ?]
+
+**V1.05a - 2026/01/25**
+
+[? if not snoopy: - New achievements: "Alt, Aber Gold", "Kleber der Partei", and "Große Säuberung". ?]
+
+[? if not snoopy: - "Hindenburg Voices Disapproval" event is now limited to 3 repeats. ?]
+
+[? if not snoopy: - People's Party now decreases Hindenburg's anger. ?]
+
+[? if not snoopy: - Tariffs have a greater impact on worker and unemployed support. ?]
+
+[? if not snoopy: - Dingeldey's <span style="color: #C0A054;">**DVP**</span> now joins the <span style="color: #7A3C00;">far</span>-<span style="color: #3E88B3;">right</span> coalition more often. ?]
+
+[? if not snoopy: - Neorevisionist faction strength and dissent are now displayed in the status. ?]
+
+[? if not snoopy: - Fixed a bug causing centrist and non-factional dissent decay reductions to not apply. ?]
+
+[? if not snoopy: - Other bug fixes. ?]
+
+**V1.06 - 2026/5/24**
+
+[? if not snoopy: - New achievements: "Der Rote Justiz", "Brüning der Rotfrontkämpfer", "Merz und Scholz", "Lindner Moribund" and "Tausendjährige Libreich". ?]
+
+[? if not snoopy: - Added Saxony Landtag Election in 1933. ?]
+
+[? if not snoopy: - Disconnected the discombobulator. ?]
+
+[? if not snoopy: - Other bug fixes. ?]
+
 = Future Plans
 
-I'm currently on break.
+I'm currently working on another mod, *La Via Chilena al Socialismo*. Updates will resume once that's finished.
 
-- @flavors: Back
+- @back3: Back
+
+@back3
+on-arrival:{!
+const toolsWrapper = document.getElementById('tools_wrapper');
+if (toolsWrapper) {
+  toolsWrapper.style.display = 'block';
+}
+const elements = document.querySelectorAll('header, #content, footer');
+elements.forEach(el => {
+  el.style.maxWidth = '540px';
+});
+!}
+go-to: flavors
 
 @source
 

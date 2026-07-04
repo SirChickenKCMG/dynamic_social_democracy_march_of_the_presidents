@@ -107,7 +107,7 @@ Q.economic_growth_2 = '0';
 if (Q.economic_growth) {
     Q.economic_growth_2 = Q.economic_growth.toFixed(1);
 }
-Q.pro_republic_disp = Math.round(Q.pro_republic);
+Q.pro_republic_disp = Math.floor(Q.pro_republic);
 !}
 
 = Emergency Status
@@ -147,7 +147,7 @@ Support for the Republic: [+ pro_republic_disp +]%<br>
 = Economics
 
 Inflation: [+ inflation_2 +]%<br>
-[? if black_thursday_seen = 1 : Unemployment: [+ unemployed_2 +]% ?]<br>
+[? if black_thursday_seen or jobless_mode: Unemployment: [+ unemployed_2 +]% ?]<br>
 Economic growth: [+ economic_growth_2 +]%
 
 @politics
@@ -248,6 +248,7 @@ Economic growth: [+ economic_growth_2 +]%
 
 {!<span class="tooltip-text" title="Reformists are pragmatic participants in government, and seek to expand the welfare state and defend democracy.">Reformist</span>!} strength: [+ reformist_strength : strength +], dissent: [+ reformist_dissent : dissent +]
 
+[? if neorevisionism: {!<span class="tooltip-text" title="Neorevisionists focus on defending the republic and expanding democracy, supporting new propaganda methods and extra-parliamentary action">Neorevisionist</span>!} strength: [+ neorevisionist_strength : strength +], dissent: [+ neorevisionist_dissent : dissent +] ?]
 
 @paramilitaries
 on-arrival: {!
@@ -316,9 +317,9 @@ Prussian police loyalty: [+ prussian_police_loyalty : loyalty +]
 
 @polls
 on-arrival: {!
-Q.pro_republic_disp = Math.round(Q.pro_republic);
-Q.nationalism_disp = Math.round(Q.nationalism);
-Q.socialism_disp = Math.round(Q.socialism);
+Q.pro_republic_disp = Math.floor(Q.pro_republic);
+Q.nationalism_disp = Math.floor(Q.nationalism);
+Q.socialism_disp = Math.floor(Q.socialism);
 !}
 
 = Projected election results

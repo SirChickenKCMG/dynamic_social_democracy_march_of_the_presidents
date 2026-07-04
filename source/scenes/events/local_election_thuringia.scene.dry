@@ -289,7 +289,7 @@ Q.kpo_thuringia_elections_vote = (Q.kpo_thuringia_elections_vote != undefined ? 
 Q.kpd_thuringia_elections_vote = (Q.kpd_thuringia_elections_vote != undefined ? parseFloat(Q.kpd_thuringia_elections_vote.toFixed(1)) : 0);
 
 Q.left_coalition_thuringia = parseFloat((Q.spd_r_thuringia + Q.kpd_r_thuringia + Q.sapd_r_thuringia).toFixed(1));
-Q.bourgeois_coalition_thuringia = parseFloat((Q.z_r_thuringia + Q.ddp_r_thuringia + Q.dvp_r_thuringia + Q.lvp_r_thuringia + Q.kvp_r_thuringia + Q.other_r_thuringia).toFixed(1));
+Q.bourgeois_coalition_thuringia = parseFloat((Q.z_r_thuringia + Q.ddp_r_thuringia + Q.dvp_r_thuringia + Q.lvp_r_thuringia + Q.kvp_r_thuringia + Q.other_r_thuringia + Q.dnvp_r_thuringia).toFixed(1));
 Q.far_right_coalition_thuringia = parseFloat((Q.z_r_thuringia + Q.dvp_r_thuringia + Q.lvp_r_thuringia + Q.kvp_r_thuringia + Q.other_r_thuringia + Q.dnvp_r_thuringia + Q.nsdap_r_thuringia + Q.dnf_r_thuringia).toFixed(1));
 Q.spd_coalition_thuringia = parseFloat((Q.spd_r_thuringia + Q.ddp_r_thuringia + Q.lvp_r_thuringia + Q.z_r_thuringia + Q.dvp_r_thuringia).toFixed(1));
 
@@ -505,6 +505,7 @@ Meanwhile, the surging <span style="color: #7A3C00;">**NSDAP**</span>, now contr
 - @grand_coalition_thuringia
 - @united_left_thuringia
 - @no_majority
+- @spd_majority
 
 
 @toleration_thuringia
@@ -544,7 +545,7 @@ subtitle: We have somehow reconciled with the bourgeois parties, that they're wi
 unavailable-subtitle: [? if z_relation < 60 and stegerwald_path: We need higher relations with the [? if z_party_name != "CVP": <span style="color: #000000;">Center Party</span>?][? if z_party_name == "CVP": <span style="color: #000000;">**CVP**</span>?]. ?][? if dvp_toleration_threshold_fail: We need higher relations with the [? if not lvp_formed: <span style="color: #C0A054;">DVP</span>?][? if lvp_formed: <span style="color: #FFCC00;">LVP</span>?]. ?]
 view-if: spd_coalition_thuringia >= 50
 choose-if: spd_coalition_possible
-on-arrival: thuringia_spd = 1; rural_nsdap -= 2; new_middle_nsdap -= 2; old_middle_nsdap -= 2; new_middle_spd += 2; old_middle_spd += 2; rural_spd += 2; z_relation += 3; ddp_relation += 3; lvp_relation += 3; pro_republic += 3; sa_strength -= 25
+on-arrival: thuringia_spd = 1; rural_nsdap -= 2; new_middle_nsdap -= 2; old_middle_nsdap -= 2; new_middle_spd += 2; old_middle_spd += 2; rural_spd += 2; z_relation += 3; ddp_relation += 3; lvp_relation += 3; pro_republic += 3; prussian_police_loyalty += 0.03; sa_strength -= 25
 
 Somehow, the bourgeois parties are willing to form a [? if lvp_formed: <span style="color: #000000;">We</span><span style="color: #DD0000;">im</span><span style="color: #FFCC00;">ar</span>?][? if not lvp_formed: Grand?] Coalition with us, rather than continuing their current government.
 
@@ -571,6 +572,16 @@ on-display: {!
 Surprisingly, despite reluctance on both sides due to fears that the <span style="color: #808080;">reactionary</span> Hindenburg will order a <i>Reichsexekution</i> if a coalition were to form. <span style="color: #c00000;">Red</span> Thuringia is restored! 
 
 Hindenburg’s patience is especially thin. Tread carefully.
+
+@spd_majority
+title: The <span style="color: #c00000;">**SPD**</span> forms a majority government.
+subtitle: Congratulations.
+view-if: spd_r_thuringia >= 50
+on-arrival: thuringia_spd = 1; rural_nsdap -= 3; new_middle_nsdap -= 4; old_middle_nsdap -= 4; workers_kpd -= 2; unemployed_kpd -= 2; workers_spd += 2; unemployed_spd += 2; new_middle_spd += 4; old_middle_spd += 4; rural_spd += 3; pro_republic += 5; prussian_police_loyalty += 0.05; sa_strength -= 50
+
+To the sheer horror of the right-wing parties in Thuringia, an unforeseen occurrence has swept over the state: a complete SPD majority. Members of the far-right cry foul; voter fraud, other forms of subterfuge, and attacks ranging to outright conspiracy is hurled at the results. Nonetheless, <span style="color: #c00000;">Red</span> Thuringia is restored, without the revolutionary concerns of the <span style="color: #D47B9B;">**USPD**</span>/<span style="color: #700000;">**KPD**</span>’s presence in the landtag.
+
+We have undertaken the purging of reactionary sentiments within the police, and revamped the state’s school curriculum to move away from the nationalistic values that remain prevalent. More work is set to be done, but at least Hindenburg’s gaze has been turned away… for now.
 
 @no_majority
 title: No majority can be found!
@@ -615,7 +626,7 @@ In an effort to avoid this, they are more open to negotiating a toleration agree
 @no_majority_2
 title: A majority still can't be found!
 subtitle: [? if not toleration_possible: This is getting ridiculous. ?][? if toleration_possible: We will refuse to tolerate the bourgeois government, forcing new elections. ?]
-on-arrival: thuringia_election_2_trigger_time = time + 3; thuringia_no_majority = 1; new_middle_nsdap += 4; old_middle_nsdap += 4; rural_nsdap += 2; unemployed_nsdap += 4; pro_republic -= 3; new_middle_spd -= 3 if toleration_possible; old_middle_spd -= 3 if toleration_possible; rural_spd -= 2 if toleration_possible
+on-arrival: thuringia_election_2_trigger_time = time + 3; thuringia_no_majority = 1 if not thuringia_no_majority; thuringia_no_majority += 1 if thuringia_no_majority; new_middle_nsdap += 4; old_middle_nsdap += 4; rural_nsdap += 2; unemployed_nsdap += 4; pro_republic -= 3; new_middle_spd -= 3 if toleration_possible; old_middle_spd -= 3 if toleration_possible; rural_spd -= 2 if toleration_possible
 
 [? if not toleration_possible: The bourgeois parties remain unwilling to accept our offer of toleration. [? if far_right_coalition_thuringia + ddp_r_thuringia >= 50: One option the incumbent coalition has considered is including both the <span style="color: #D3C24D;">**[+ ddp_name +]**</span> and the <span style="color: #7A3C00;">**NSDAP**</span>, but for obvious reasons, both parties have vetoed this proposal. ?]?][? if toleration_possible: By refusing to enter any toleration agreement, and with the bourgeois parties unwilling to let us lead the government, no majority can be found. As a result, we have shouldered much of the blame for the deadlock and are likely to suffer in the next elections. ?]
 
